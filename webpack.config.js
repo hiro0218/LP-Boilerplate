@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const pathConfig = require('./src/template/path.config');
@@ -17,14 +18,37 @@ pathConfig.forEach((config) => {
 });
 
 const Config = {
+  devtool: 'source-map',
+
   entry: path.join(__dirname, './src/main.js'),
 
   output: {
+    filename: 'js/[name].js',
     path: path.join(__dirname, 'dist'),
   },
 
   module: {
     rules: [
+      {
+        test: /\.css/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              url: false,
+              sourceMap: true,
+              importLoaders: 2,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
+      },
       {
         test: /\.ejs$/,
         use: [
@@ -45,6 +69,7 @@ const Config = {
 
   plugins: [
     ...webpackPluginsTemplate,
+    new MiniCssExtractPlugin({ filename: 'css/[name].css' }),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [path.join(__dirname, 'dist')],
     }),
