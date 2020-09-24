@@ -30,6 +30,10 @@
     "postcss-nested": "^5.0.0",
     "postcss-sort-media-queries": "^1.31.21",
     "prettier": "^2.1.2",
+    "stylelint": "^13.6.0",
+    "stylelint-config-recess-order": "^2.0.3",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-declaration-block-no-ignored-properties": "^2.3.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
@@ -45,6 +49,9 @@
     ],
     "**/*.ejs": [
       "prettier --parser html --write"
+    ],
+    "**/*.css": [
+      "stylelint --fix"
     ]
   }
 }
