@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const pathConfig = require('./src/template/path.config');
 
@@ -13,6 +13,7 @@ pathConfig.forEach((config) => {
       template: path.resolve(__dirname, config.from),
       minify: false,
       inject: 'body',
+      alwaysWriteToDisk: true,
     })
   );
 });
@@ -32,7 +33,13 @@ const Config = {
       {
         test: /\.css/,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV === 'development',
+              reloadAll: true,
+            },
+          },
           {
             loader: 'css-loader',
             options: {
@@ -70,14 +77,20 @@ const Config = {
   plugins: [
     ...webpackPluginsTemplate,
     new MiniCssExtractPlugin({ filename: 'css/[name].css' }),
-    new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: [path.join(__dirname, 'dist')],
-    }),
+    new HtmlWebpackHarddiskPlugin(),
   ],
-
   resolve: {
     modules: ['node_modules'],
     extensions: ['.ts', '.js'],
+  },
+
+  devServer: {
+    watchContentBase: true,
+    contentBase: path.join(__dirname, 'dist/template'),
+    open: true,
+    inline: true,
+    hot: true,
+    liveReload: true,
   },
 };
 
