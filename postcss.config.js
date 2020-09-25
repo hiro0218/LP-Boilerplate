@@ -7,6 +7,7 @@ module.exports = (ctx) => {
         cascade: false,
       }),
       require('postcss-nested')(),
+      require('postcss-extend')(),
       require('cssnano')({
         preset: [
           'default',
