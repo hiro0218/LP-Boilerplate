@@ -21,7 +21,7 @@ pathConfig.forEach((config) => {
 const Config = {
   devtool: 'source-map',
 
-  entry: path.join(__dirname, './src/main.js'),
+  entry: path.join(__dirname, './src/main.ts'),
 
   output: {
     filename: 'js/[name].js',
@@ -30,6 +30,10 @@ const Config = {
 
   module: {
     rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+      },
       {
         test: /\.css/,
         use: [
