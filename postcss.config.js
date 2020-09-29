@@ -6,6 +6,7 @@ module.exports = (ctx) => {
         grid: 'autoplace',
         cascade: false,
       }),
+      require('postcss-mixins')(),
       require('postcss-nested')(),
       require('postcss-extend')(),
       require('cssnano')({
