@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run build:dev && cross-env NODE_ENV=development webpack-dev-server",
-    "build": "webpack -p --progress --mode production --config ./webpack.config.js",
-    "build:dev": "npm run build -- --mode development",
-    "watch": "webpack -p --progress --mode production --config ./webpack.config.js -w"
+    "build": "webpack -p --progress --mode production --config ./webpack.config.js"
   },
   "author": "hiro",
   "license": "MIT",
