@@ -32,6 +32,6 @@ module.exports = {
     'declaration-colon-space-after': 'always-single-line',
     'no-extra-semicolons': true,
     'no-missing-end-of-source-newline': true,
-    'at-rule-no-unknown': [true, { ignoreAtRules: ['define-mixin', 'mixin', 'mixin-content'] }],
+    'at-rule-no-unknown': [true, { ignoreAtRules: ['define-mixin', 'mixin', 'mixin-content', 'extend'] }],
   },
 };
