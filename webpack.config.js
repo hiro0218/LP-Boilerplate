@@ -3,17 +3,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const pathConfig = require('./src/template/path.config');
+const pageConfig = require('./src/template/page.config');
 
 const webpackPluginsTemplate = [];
-pathConfig.forEach((config) => {
+pageConfig.forEach((config) => {
   webpackPluginsTemplate.push(
     new HtmlWebpackPlugin({
-      filename: path.resolve(__dirname, config.dist),
-      template: path.resolve(__dirname, config.from),
+      filename: path.resolve(__dirname, config.path.dist),
+      template: path.resolve(__dirname, config.path.from),
       minify: false,
       inject: 'body',
       alwaysWriteToDisk: true,
+      data: config.data,
     })
   );
 });
@@ -77,14 +78,7 @@ const Config = {
         test: /\.ejs$/,
         use: [
           {
-            loader: 'html-loader',
-            options: {
-              attributes: false,
-              minimize: false,
-            },
-          },
-          {
-            loader: 'ejs-html-loader',
+            loader: 'ejs-easy-loader',
           },
         ],
       },
