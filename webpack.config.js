@@ -102,6 +102,7 @@ const Config = {
     inline: true,
     hot: true,
     liveReload: true,
+    writeToDisk: true,
   },
 };
 
